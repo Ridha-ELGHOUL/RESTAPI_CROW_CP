@@ -1,7 +1,7 @@
 # RESTAPI_CROW_CP
 A Demonstration for REST API and Data Access using C++ and CROW Framework and azure cloud for docker depoyment.
 Used Data Base : Mongo DB Cloud hosted.
-# Project Configuration and Env setting up
+# Project Configuration and Env set up
 Download the project : 
 ```sh
 $ git clone https://github.com/Ridha-ELGHOUL/RESTAPI_CROW_CP.git 
@@ -28,7 +28,11 @@ Execute app from host:(open port and match it with docker port: example 8080)
 docker run -v $LOCAL_HOST_PATH_PROJECT$:/usr/src/cppweb -p 8080:8080 -e PORT=8080  cppbox:latest  /usr/src/cppweb/demo-crow/build/demo_crow
 
 ```
+- bbox folder:
+```sh
+$ docker build --rm --squash --no-cache -t bbox:latest . 
 
+```
 # DataBase Creation and configuration
 # End point and Parsing Path
 # Reading Query string.
