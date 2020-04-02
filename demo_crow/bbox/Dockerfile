@@ -11,7 +11,7 @@ RUN apt-get -qq install build-essential libtcmalloc-minimal4 && \
 WORKDIR /usr/src
 
 RUN git clone https://github.com/mongodb/mongo-c-driver.git \
-&& cd mongo-c-driver && git checkout 1.10.1 \
+&& cd mongo-c-driver && git checkout 1.13.0 \
 && mkdir cmake-build && cd cmake-build \
 && cmake -DENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF .. \
 && make && make install && ldconfig /usr/local/lib

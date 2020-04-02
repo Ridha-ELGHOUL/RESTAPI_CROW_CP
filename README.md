@@ -1,14 +1,31 @@
 # RESTAPI_CROW_CP
 A Demonstration for REST API and Data Access using C++ and CROW Framework and azure cloud for docker depoyment.
 Used Data Base : Mongo DB Cloud hosted.
-# Project Configuration and Env set up
+
+# Setting up Environnment  
+Install Docker for :
+- Windows (https://docs.docker.com/docker-for-windows/install/).
+- Linux, ubuntu 18.04 (https://docs.docker.com/install/linux/docker-ce/ubuntu/).
+
 Download the project : 
 ```sh
 $ git clone https://github.com/Ridha-ELGHOUL/RESTAPI_CROW_CP.git 
 ```
 Build docker image: 
 ```sh
-
+$ docker build -t cppbox .
+$ docker build --rm --squash --no-cache -t bbox:latest
+$ docker run -ti cppbox:latest bash 
+``` 
+Enable squash option on docker build : 
+``` sh
+$ mkdir ~/.docker
+$ echo '{ "experimental": "enabled" }' > ~/.docker/config.json
+$ sudo systemctl restart docker
+$ docker version
+  ...
+  Experimental: true
+  ...
 ``` 
 add Volume :
 ```sh
