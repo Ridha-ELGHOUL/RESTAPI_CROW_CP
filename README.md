@@ -31,6 +31,10 @@ add Volume :
 ```sh
 $ docker run -v <host>:<container -ti <image> bash
 ```
+Example:
+```sh
+$docker run -v /home/vmlx/RESTAPI_CROW_CP/:/usr/src/cppweb -ti bbox:latest bash
+```
 Building Crow from Docker Image: (inside docker- No boost and dependencies exist on host machine )
 ```sh
 cd /usr/src/cppweb
