@@ -2,6 +2,7 @@
 A Demonstration for REST API and Data Access using C++ and CROW Framework and azure cloud for docker depoyment.
 Used Data Base : Mongo DB Cloud hosted.
 
+
 # Setting up Environnment  
 Install Docker for :
 - Windows (https://docs.docker.com/docker-for-windows/install/).
@@ -11,12 +12,12 @@ Download the project :
 ```sh
 $ git clone https://github.com/Ridha-ELGHOUL/RESTAPI_CROW_CP.git 
 ```
-Build docker image: 
+Build docker image : 
 ```sh
-$ docker build -t cppbox .
+
 $ docker build --rm --squash --no-cache -t bbox:latest
-$ docker run -ti cppbox:latest bash 
 ``` 
+
 Enable squash option on docker build : 
 ``` sh
 $ mkdir ~/.docker
@@ -26,6 +27,10 @@ $ docker version
   ...
   Experimental: true
   ...
+``` 
+Run docker with bash (just for testing) : 
+``` sh
+$ docker run -ti bbox:latest bash 
 ``` 
 add Volume :
 ```sh
@@ -46,15 +51,22 @@ make
 Execute app from host:(open port and match it with docker port: example 8080)
 
 ```sh
-docker run -v $LOCAL_HOST_PATH_PROJECT$:/usr/src/cppweb -p 8080:8080 -e PORT=8080  cppbox:latest  /usr/src/cppweb/demo-crow/build/demo_crow
+docker run -v $LOCAL_HOST_PATH_PROJECT$:/usr/src/cppweb -p 8080:8080 -e PORT=8080  cppbox:latest  /usr/src/cppweb/demo_crow/build/demo_crow
 
 ```
 - bbox folder:
 ```sh
 $ docker build --rm --squash --no-cache -t bbox:latest . 
 
+``` 
+# Setting up mongodb Database:
+Install mongodb 
+- ubuntu : https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+- Windows : https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
+Add json file : 
+```sh
+mongoimport -h vmlx.eastus.cloudapp.azure.com:27017 -d cppdb -c contacts -u sa --file contacts.json --type json --jsonArray
 ```
-# DataBase Creation and configuration
 # End point and Parsing Path
 # Reading Query string.
 This example  based on C++ REST API from linkedin learning   
