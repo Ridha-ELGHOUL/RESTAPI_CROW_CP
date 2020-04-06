@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
 
   mongocxx::instance inst{};
   //string mongoConnect = std::string("vmlx.eastus.cloudapp.azure.com:27017");
-  mongocxx::client conn{mongocxx::uri{"mongodb://vmlx.eastus.cloudapp.azure.com:27017"}};
+  mongocxx::client conn(mongocxx::uri("mongodb://52.170.255.80:27017");
   auto collection = conn["cppdb"]["contacts"];
 
   CROW_ROUTE(app, "/styles/<string>")
