@@ -77,7 +77,7 @@ int main(int argc, char* argv[]) {
   set_base(".");
 
   mongocxx::instance inst{};
-  string mongoConnect = std::string(getenv("MONGODB_URI"));
+  string mongoConnect = std::string("mongodb://52.170.255.80:27017");
   mongocxx::client conn{mongocxx::uri{mongoConnect}};
   auto collection = conn["cppdb"]["contacts"];
 
