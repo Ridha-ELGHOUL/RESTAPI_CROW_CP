@@ -98,7 +98,7 @@ int main(int argc, char* argv[]) {
   .onmessage([&] (crow::websocket::connection &/*conn*/,const string &data, bool is_binary){
     std::lock_guard<std::mutex> _(mtx);
     for (auto user : users){
-      if(us_binary){
+      if(is_binary){
         user-> send_binary(data);
 
       }else{
