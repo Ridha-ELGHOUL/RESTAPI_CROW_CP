@@ -6,6 +6,7 @@
 #include <boost/filesystem.hpp>
 #include<unordered_set>
 #include<mutex>
+
 #include <bsoncxx/builder/stream/document.hpp>
 #include <bsoncxx/json.hpp>
 #include <bsoncxx/oid.hpp>
@@ -75,7 +76,7 @@ void notFound(response &res, const string &message){
 
 int main(int argc, char* argv[]) {
   std::mutex mtx;
-  std::unordered_set<crow::websocket::connection*> users;
+  std::unordered_set<crow::websocket::connection *> users;
 
   crow::SimpleApp app;
   set_base(".");
@@ -100,14 +101,13 @@ int main(int argc, char* argv[]) {
     for (auto user : users){
       if(is_binary){
         user-> send_binary(data);
-
       }else{
         user->send_text(data);
       }
     }
   });
   CROW_ROUTE(app, "chat")
-    ([](const request &req, response &res, string filename){
+    ([](const request &req, response &res){
     sendHtml(res,"chat");
     });
   CROW_ROUTE(app, "/styles/<string>")
