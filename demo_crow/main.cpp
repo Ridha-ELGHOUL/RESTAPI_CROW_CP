@@ -106,7 +106,7 @@ int main(int argc, char* argv[]) {
       }
     }
   });
-  CROW_ROUTE(app, "chat")
+  CROW_ROUTE(app, "/chat")
     ([](const request &req, response &res){
     sendHtml(res,"chat");
     });
