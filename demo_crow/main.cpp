@@ -108,13 +108,14 @@ int main(int argc, char* argv[]) {
   });
   CROW_ROUTE(app, "/chat")
     ([](const request &req, response &res){
-    sendHtml(res,"chat");
+      sendHtml(res, "chat");
     });
+
   CROW_ROUTE(app, "/styles/<string>")
     ([](const request &req, response &res, string filename){
       sendStyle(res, filename);
     });
-
+  
   CROW_ROUTE(app, "/scripts/<string>")
     ([](const request &req, response &res, string filename){
       sendScript(res, filename);
