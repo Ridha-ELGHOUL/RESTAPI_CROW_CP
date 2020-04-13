@@ -91,11 +91,11 @@ int main(int argc, char* argv[]) {
     std::lock_guard<std::mutex> _(mtx);
     users.insert(&conn);
   })
-  .onclose(crow::websocket::connection &conn,const string &reason){
+  .onclose([&](crow::websocket::connection &conn,const string &reason){
     std::lock_guard<std::mutex> _(mtx);
     users.erase(&conn);
   })
-  .onmessage(crow::websocket::connection &/*conn*/,const string &data, bool is_binary){
+  .onmessage([&] (crow::websocket::connection &/*conn*/,const string &data, bool is_binary){
     std::lock_guard<std::mutex> _(mtx);
     for (auto user : users){
       if(us_binary){
