@@ -106,10 +106,7 @@ int main(int argc, char* argv[]) {
       }
     }
   });
-  CROW_ROUTE(app, "/chat")
-    ([](const request &req, response &res){
-      sendHtml(res, "chat");
-    });
+  
 
   CROW_ROUTE(app, "/styles/<string>")
     ([](const request &req, response &res, string filename){
@@ -129,6 +126,11 @@ int main(int argc, char* argv[]) {
   CROW_ROUTE(app, "/about")
     ([](const request &req, response &res){
       sendHtml(res, "about");
+    });
+
+  CROW_ROUTE(app, "/chat")
+    ([](const request &req, response &res){
+      sendHtml(res, "chat");
     });
 
   CROW_ROUTE(app, "/contact/<string>")
@@ -200,7 +202,7 @@ int main(int argc, char* argv[]) {
       auto firstname = req.url_params.get("firstname");
       auto lastname = req.url_params.get("lastname");
       ostringstream os;
-      os << "Hello "<< (firstname? firstname: "") <<
+      os << "Hello :  "<< (firstname? firstname: "") <<
         " " << (lastname? lastname: "") << endl;
       res.set_header("Content-Type", "text/plain");
       res.write(os.str());
@@ -212,7 +214,7 @@ int main(int argc, char* argv[]) {
     ([](const request &req, response &res){
       string method = method_name(req.method);
       res.set_header("Content-Type", "text/plain");
-      res.write(method + " rest_test");
+      res.write(method + " REST_API_test");
       res.end();
     });
 
