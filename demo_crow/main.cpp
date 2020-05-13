@@ -4,6 +4,8 @@
 #include <vector>
 #include <cstdlib>
 #include <boost/filesystem.hpp>
+#include<unordered_set>
+#include<mutex>
 
 #include <bsoncxx/builder/stream/document.hpp>
 #include <bsoncxx/json.hpp>
@@ -73,19 +75,44 @@ void notFound(response &res, const string &message){
 }
 
 int main(int argc, char* argv[]) {
+  std::mutex mtx;
+  std::unordered_set<crow::websocket::connection *> users;
+
   crow::SimpleApp app;
   set_base(".");
 
   mongocxx::instance inst{};
-  string mongoConnect = std::string("mongodb://52.170.255.80:27017");
+  string mongoConnect = std::string("mongodb://mymongodbcpp:0fa5Opk8lQPxmsFvziguqLNALLtIUJxs2IJ91E6ft0fLD7h4iubtWU1usOqOSfHEhxSIEPPv3O25P0kx6RHyzg==@mymongodbcpp.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@mymongodbcpp@");
   mongocxx::client conn{mongocxx::uri{mongoConnect}};
   auto collection = conn["cppdb"]["contacts"];
+  
+  CROW_ROUTE(app,"/ws")
+  .websocket()
+  .onopen([&](crow::websocket::connection &conn){
+    std::lock_guard<std::mutex> _(mtx);
+    users.insert(&conn);
+  })
+  .onclose([&](crow::websocket::connection &conn,const string &reason){
+    std::lock_guard<std::mutex> _(mtx);
+    users.erase(&conn);
+  })
+  .onmessage([&] (crow::websocket::connection &/*conn*/,const string &data, bool is_binary){
+    std::lock_guard<std::mutex> _(mtx);
+    for (auto user : users){
+      if(is_binary){
+        user-> send_binary(data);
+      }else{
+        user->send_text(data);
+      }
+    }
+  });
+  
 
   CROW_ROUTE(app, "/styles/<string>")
     ([](const request &req, response &res, string filename){
       sendStyle(res, filename);
     });
-
+  
   CROW_ROUTE(app, "/scripts/<string>")
     ([](const request &req, response &res, string filename){
       sendScript(res, filename);
@@ -99,6 +126,11 @@ int main(int argc, char* argv[]) {
   CROW_ROUTE(app, "/about")
     ([](const request &req, response &res){
       sendHtml(res, "about");
+    });
+
+  CROW_ROUTE(app, "/chat")
+    ([](const request &req, response &res){
+      sendHtml(res, "chat");
     });
 
   CROW_ROUTE(app, "/contact/<string>")
@@ -170,7 +202,7 @@ int main(int argc, char* argv[]) {
       auto firstname = req.url_params.get("firstname");
       auto lastname = req.url_params.get("lastname");
       ostringstream os;
-      os << "Hello "<< (firstname? firstname: "") <<
+      os << "Hello :  "<< (firstname? firstname: "") <<
         " " << (lastname? lastname: "") << endl;
       res.set_header("Content-Type", "text/plain");
       res.write(os.str());
@@ -182,7 +214,7 @@ int main(int argc, char* argv[]) {
     ([](const request &req, response &res){
       string method = method_name(req.method);
       res.set_header("Content-Type", "text/plain");
-      res.write(method + " rest_test");
+      res.write(method + " REST_API_test");
       res.end();
     });
 

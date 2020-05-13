@@ -1,6 +1,6 @@
 # RESTAPI_CROW_CP
-A Demonstration for REST API and Data Access using C++ and CROW Framework and azure cloud for docker depoyment.
-Used Data Base : Mongo DB Cloud hosted.
+- A Demonstration for REST API and Data Access using C++ and CROW Framework and azure cloud for docker depoyment.
+- Azure Cosmos DB for Database service with mongoDB API.
 
 
 # Setting up Environnment  
@@ -59,13 +59,18 @@ docker run -v $LOCAL_HOST_PATH_PROJECT$:/usr/src/cppweb -p 8080:8080 -e PORT=808
 $ docker build --rm --squash --no-cache -t bbox:latest . 
 
 ``` 
-# Setting up mongodb Database:
+# Configuration of Azure CosmosDB with mongo mongoDB API
+- Create Resource for your cosmos database.
+- Choose your API (mongoDB API)
+- Add your Collection Name.
+- Import your data from Json file using 'mongoimport' command.
+# Setting up mongodb Database (on Premise)
 Install mongodb 
 - ubuntu : https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 - Windows : https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
 Add json file : 
 ```sh
-mongoimport -h vmlx.eastus.cloudapp.azure.com:27017 -d cppdb -c contacts -u sa --file contacts.json --type json --jsonArray
+mongoimport -h $YOUR_IP_DB_MONGO_SERVER -d $NAME_OF_DATABASE -c contacts -u sa --file contacts.json --type json --jsonArray
 ```
 # End point and Parsing Path
 # Reading Query string.
