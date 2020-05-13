@@ -70,7 +70,7 @@ Install mongodb
 - Windows : https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/
 Add json file : 
 ```sh
-mongoimport -h $YOUR_IP_DB_MONGO_SERVER -d $NAME_OF_DATABASE -c contacts -u sa --file contacts.json --type json --jsonArray
+mongoimport --host $YOUR_IP_DB_MONGO_SERVER --db $NAME_OF_DATABASE --collection contacts -u $USER_NAME -p $PASSWORD_DB --file contacts.json --type json --jsonArray
 ```
 # End point and Parsing Path
 # Reading Query string.
