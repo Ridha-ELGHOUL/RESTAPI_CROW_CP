@@ -84,6 +84,7 @@ int main(int argc, char* argv[]) {
   mongocxx::instance inst{};
   string mongoConnect = std::string("mongodb://mymongodbcpp:0fa5Opk8lQPxmsFvziguqLNALLtIUJxs2IJ91E6ft0fLD7h4iubtWU1usOqOSfHEhxSIEPPv3O25P0kx6RHyzg==@mymongodbcpp.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@mymongodbcpp@");
   mongocxx::client conn{mongocxx::uri{mongoConnect}};
+  std::cout<<"connet to db"<<std::endln;
   auto collection = conn["cppdb"]["contacts"];
   
   CROW_ROUTE(app,"/ws")
